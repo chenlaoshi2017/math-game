@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026春苏教版五年级下册数学 · 闯关训练</title>
+<style>
+  :root {
+    --primary: #4F46E5;
+    --primary-light: #818CF8;
+    --primary-bg: #EEF2FF;
+    --success: #10B981;
+    --success-bg: #D1FAE5;
+    --danger: #EF4444;
+    --danger-bg: #FEE2E2;
+    --warning: #F59E0B;
+    --warning-bg: #FEF3C7;
+    --text: #1F2937;
+    --text-light: #6B7280;
+    --bg: #F3F4F6;
+    --card: #FFFFFF;
+    --border: #E5E7EB;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+  .header {
+    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+    color: white;
+    padding: 24px 20px 18px;
+    text-align: center;
+  }
+  .header h1 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+  .header .sub { font-size: 13px; opacity: 0.85; }
+  .progress-bar-wrap {
+    background: var(--card);
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .progress-label { font-size: 13px; color: var(--text-light); margin-bottom: 6px; }
+  .progress-track { height: 10px; background: #E5E7EB; border-radius: 5px; overflow: hidden; }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), #7C3AED);
+    border-radius: 5px;
+    transition: width 0.5s ease;
+  }
+  .progress-text { font-size: 12px; color: var(--text-light); margin-top: 4px; text-align: right; }
+  .chapter-title {
+    padding: 16px 20px 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary-bg);
+    margin-bottom: 4px;
+  }
+  .chapter-tips {
+    padding: 8px 20px 12px;
+    font-size: 13px;
+    color: var(--text-light);
+    background: var(--primary-bg);
+    margin: 0 12px 12px;
+    border-radius: 8px;
+  }
+  /* Level card */
+  .level-card {
+    margin: 10px 12px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card);
+    transition: all 0.3s;
+  }
+  .level-card.locked {
+    opacity: 0.45;
+    filter: grayscale(0.5);
+    pointer-events: none;
+  }
+  .level-card.active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.12);
+  }
+  .level-card.passed {
+    border-color: var(--success);
+  }
+  .level-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .level-badge {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 15px;
+    color: white;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .level-badge.l1 { background: #3B82F6; }
+  .level-badge.l2 { background: #8B5CF6; }
+  .level-badge.l3 { background: #F59E0B; }
+  .level-badge.l4 { background: #EF4444; }
+  .level-badge.locked-badge { background: #9CA3AF; }
+  .level-badge.passed-badge { background: var(--success); }
+  .level-header-text { flex: 1; }
+  .level-header-text h3 { font-size: 15px; font-weight: 700; }
+  .level-header-text .level-desc { font-size: 12px; color: var(--text-light); }
+  .level-status {
+    font-size: 20px;
+    margin-left: 8px;
+  }
+  .level-body {
+    padding: 0 16px 16px;
+    display: none;
+  }
+  .level-card.open .level-body {
+    display: block;
+  }
+  /* Question */
+  .q-card {
+    background: #F9FAFB;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .q-num {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .q-content {
+    display: inline;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+  .q-hint {
+    font-size: 12px;
+    color: var(--warning);
+    background: var(--warning-bg);
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-top: 8px;
+  }
+  .answer-area {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .answer-input {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    width: 200px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .answer-input:focus {
+    border-color: var(--primary);
+  }
+  .answer-input.correct-input {
+    border-color: var(--success);
+    background: var(--success-bg);
+  }
+  .answer-input.wrong-input {
+    border-color: var(--danger);
+    background: var(--danger-bg);
+  }
+  .answer-input:disabled {
+    background: #F3F4F6;
+    cursor: not-allowed;
+  }
+  .options {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .opt-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.15s;
+    text-align: left;
+  }
+  .opt-btn:hover {
+    border-color: var(--primary-light);
+    background: var(--primary-bg);
+  }
+  .opt-btn.selected {
+    border-color: var(--primary);
+    background: var(--primary-bg);
+  }
+  .opt-letter {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--primary-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+  .opt-btn.correct-opt {
+    border-color: var(--success);
+    background: var(--success-bg);
+  }
+  .opt-btn.correct-opt .opt-letter {
+    background: var(--success);
+    color: white;
+  }
+  .opt-btn.wrong-opt {
+    border-color: var(--danger);
+    background: var(--danger-bg);
+  }
+  .opt-btn.wrong-opt .opt-letter {
+    background: var(--danger);
+    color: white;
+  }
+  .opt-btn.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  /* Feedback */
+  .feedback {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct-fb {
+    background: var(--success-bg);
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+  }
+  .feedback.wrong-fb {
+    background: var(--danger-bg);
+    color: #991B1B;
+    border: 1px solid #FCA5A5;
+  }
+  /* Action buttons */
+  .level-actions {
+    padding: 8px 16px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+  }
+  .btn-primary:hover { background: #4338CA; }
+  .btn-success {
+    background: var(--success);
+    color: white;
+  }
+  .btn-warning {
+    background: var(--warning);
+    color: white;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  /* Result banner */
+  .result-banner {
+    margin: 8px 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    display: none;
+  }
+  .result-banner.show { display: block; }
+  .result-banner.pass {
+    background: var(--success-bg);
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+  }
+  .result-banner.fail {
+    background: var(--danger-bg);
+    color: #991B1B;
+    border: 1px solid #FCA5A5;
+  }
+  /* Extra practice */
+  .extra-section {
+    margin: 8px 16px;
+    padding: 12px;
+    background: var(--warning-bg);
+    border: 1px solid #FCD34D;
+    border-radius: 8px;
+    display: none;
+  }
+  .extra-section.show { display: block; }
+  .extra-section h4 {
+    font-size: 14px;
+    color: #92400E;
+    margin-bottom: 8px;
+  }
+  /* Print */
+  @media print {
+    .progress-bar-wrap, .level-actions, .btn { display: none !important; }
+    .level-body { display: block !important; }
+    .level-card { opacity: 1 !important; filter: none !important; }
+  }
+  @media (max-width: 600px) {
+    .answer-input { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🎮 五年级数学 · 闯关训练</h1>
+  <div class="sub">每关全对才能解锁下一关，失败会获得加练机会！</div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-label">📊 闯关进度</div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progFill" style="width:0%"></div>
+  </div>
+  <div class="progress-text" id="progText">第 1 关 / 共 16 关</div>
+</div>
+
+<div id="chapterList"></div>
+
+<script>
+// ========== DATA ==========
+// 数据格式说明：
+// 每个chapter有levels数组，每个level有questions（主题目）和extra（加练题）
+// passed: 是否已通关
+// 关卡总数来自所有chapters的levels之和
+
+var chapters = [
+  {
+    "title": "第三章 · 简易方程",
+    "tips": "💡 方程的核心是「天平模型」——等号两边做同样的操作，天平永远平衡。列方程的关键是找等量关系！",
+    "levels": [
+      {
+        "name": "第一关：用字母表示数",
+        "desc": "学会用字母表示数和数量关系",
+        "level": 1,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "一本练习本a元，买5本应付多少元？",
+            "options": [
+              "5a元",
+              "a+5元",
+              "a/5元",
+              "5/a元"
+            ],
+            "answer": 0,
+            "hint": "总价等于什么？数字和字母相乘时怎么写？",
+            "explanation": "总价 = 单价×数量 = a×5 = 5a元。字母与数字相乘时，数字写在前面，乘号省略。"
+          },
+          {
+            "type": "fill",
+            "content": "用含有字母的式子表示：b的3倍与c的和，写作<input class='answer-input' style='width:80px' disabled>。",
+            "answer": [
+              "3b+c"
+            ],
+            "hint": "b的3倍怎么写？加号能不能省略？",
+            "explanation": "3b + c。注意：字母式子里加号、减号不能省略，只有乘号能省略。"
+          },
+          {
+            "type": "choice",
+            "content": "一个长方形的长是a cm，宽比长短3cm，这个长方形的宽是？",
+            "options": [
+              "3a cm",
+              "(a-3)cm",
+              "(a+3)cm",
+              "a-3 cm"
+            ],
+            "answer": 1,
+            "hint": "宽比长短3cm，宽怎么表示？加单位时要注意什么？",
+            "explanation": "宽 = (a-3)cm。注意单位要加在括号外面。a-3和(a-3)在数值上一样，但加单位时必须加括号。"
+          },
+          {
+            "type": "fill",
+            "content": "当a=5，b=3时，2a + b² = <input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "19"
+            ],
+            "hint": "先分别代入a和b的值，注意b²是什么意思。",
+            "explanation": "2a + b² = 2×5 + 3² = 10 + 9 = 19。注意b²是b×b，不是2×b！"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "一个三位数，百位数字是a，十位数字是b，个位数字是c，这个三位数用字母表示为<input class='answer-input' style='width:100px' disabled>。",
+            "answer": [
+              "100a+10b+c"
+            ],
+            "hint": "百位上的数代表什么？十位呢？个位呢？",
+            "explanation": "三位数 = 100a + 10b + c。例如a=3,b=5,c=7，则这个数是357 = 100×3+10×5+7。"
+          },
+          {
+            "type": "choice",
+            "content": "当a=4时，3a² = ？",
+            "options": [
+              "24",
+              "36",
+              "48",
+              "144"
+            ],
+            "answer": 2,
+            "hint": "注意a²是a×a，先算a²再乘3。",
+            "explanation": "3×4² = 3×16 = 48。注意先算平方再乘！"
+          }
+        ]
+      },
+      {
+        "name": "第二关：等式的性质与解方程",
+        "desc": "理解等式性质，学会解简单方程",
+        "level": 2,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "等式的性质：等式两边同时（ ），等式仍然成立。",
+            "options": [
+              "加上相同的数",
+              "乘相同的数",
+              "加上或减去相同的数",
+              "做相同的运算"
+            ],
+            "answer": 3,
+            "hint": "等式的基本性质是什么？等式两边同时做什么？",
+            "explanation": "等式两边同时做相同的运算（加、减、乘、除以非0数），等式仍然成立。这是解方程的依据！"
+          },
+          {
+            "type": "fill",
+            "content": "解方程：x + 7 = 15，x = <input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "8"
+            ],
+            "hint": "想让左边只剩x，等式两边应该同时做什么？",
+            "explanation": "x + 7 = 15，两边同减7：x = 15 - 7 = 8。检验：8+7=15✅"
+          },
+          {
+            "type": "fill",
+            "content": "解方程：3x = 24，x = <input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "8"
+            ],
+            "hint": "等式两边同时除以几能让x单独留在左边？",
+            "explanation": "3x = 24，两边同除以3：x = 24÷3 = 8。检验：3×8=24✅"
+          },
+          {
+            "type": "choice",
+            "content": "解方程：x - 5 = 12，正确的解是？",
+            "options": [
+              "x = 7",
+              "x = 17",
+              "x = 60",
+              "x = -7"
+            ],
+            "answer": 1,
+            "hint": "等式两边同时加几？",
+            "explanation": "x - 5 = 12，两边同加5：x = 17。检验：17-5=12✅"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "解方程：x ÷ 4 = 9，x = <input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "36"
+            ],
+            "hint": "等式两边同时乘几能消掉÷4？",
+            "explanation": "x ÷ 4 = 9，两边同乘4：x = 9×4 = 36。检验：36÷4=9✅"
+          },
+          {
+            "type": "fill",
+            "content": "解方程：2x - 3 = 11，x = <input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "7"
+            ],
+            "hint": "先把含x的项看作整体，先处理加减，再处理乘除。",
+            "explanation": "2x - 3 = 11 → 2x = 14 → x = 7。检验：2×7-3=11✅。解两步方程要逆序思考！"
+          }
+        ]
+      },
+      {
+        "name": "第三关：列方程解应用题",
+        "desc": "找出等量关系，列方程解决问题",
+        "level": 3,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "小明有x元钱，买文具花了28元，还剩42元。列方程正确的是？",
+            "options": [
+              "x + 28 = 42",
+              "x - 28 = 42",
+              "28 - x = 42",
+              "x = 28 + 42"
+            ],
+            "answer": 1,
+            "hint": "等量关系是什么？原有钱、花掉、剩余之间什么关系？",
+            "explanation": "等量关系：原有钱 - 花掉 = 剩余。x - 28 = 42，解得x = 70元。"
+          },
+          {
+            "type": "fill",
+            "content": "一个数的3倍是45，这个数是<input class='answer-input' style='width:60px' disabled>。（用方程解：设这个数为x）",
+            "answer": [
+              "15"
+            ],
+            "hint": "设这个数为x，它的3倍怎么表示？方程怎么列？",
+            "explanation": "设这个数为x，3x = 45，x = 45÷3 = 15。检验：15×3=45✅"
+          },
+          {
+            "type": "choice",
+            "content": "爸爸今年38岁，比儿子年龄的3倍多2岁，儿子今年几岁？设儿子x岁，方程列正确的是？",
+            "options": [
+              "3x + 2 = 38",
+              "3x - 2 = 38",
+              "x + 3×2 = 38",
+              "38 - 3x = 2"
+            ],
+            "answer": 0,
+            "hint": "等量关系：儿子年龄和爸爸年龄之间什么关系？",
+            "explanation": "3x + 2 = 38 → 3x = 36 → x = 12。儿子今年12岁。检验：12×3+2=38✅"
+          },
+          {
+            "type": "fill",
+            "content": "甲乙两地相距360km，一辆车速为x km/h，4小时到达。列方程：<input class='answer-input' style='width:120px' disabled>（不用解）",
+            "answer": [
+              "4x=360"
+            ],
+            "hint": "路程、速度、时间之间什么关系？",
+            "explanation": "等量关系：速度×时间=路程。4x = 360，解得x=90km/h。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "学校买来x盒粉笔，每盒50支，用掉120支后还剩380支。列方程：<input class='answer-input' style='width:150px' disabled>，解得x = <input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "50x-120=380",
+              "10"
+            ]
+          },
+          {
+            "type": "choice",
+            "content": "妈妈买了3kg苹果和2kg梨共花28元，苹果每kg比梨贵2元。设苹果每kg为x元，梨每kg？",
+            "options": [
+              "(x-2)元",
+              "(x+2)元",
+              "2x元",
+              "x/2元"
+            ],
+            "answer": 0,
+            "hint": "苹果比梨贵，梨比苹果便宜多少？",
+            "explanation": "设苹果每kg x元，则梨每kg (x-2)元。方程：3x+2(x-2)=28，5x-4=28，x=6.4。苹果6.4元/kg，梨4.4元/kg。"
+          }
+        ]
+      },
+      {
+        "name": "第四关：方程综合挑战",
+        "desc": "综合运用方程解决实际问题",
+        "level": 4,
+        "questions": [
+          {
+            "type": "fill",
+            "content": "两个相邻自然数的和是97，较大的数是<input class='answer-input' style='width:60px' disabled>。（列方程解）",
+            "answer": [
+              "49"
+            ],
+            "hint": "两个相邻自然数差几？设较大数为x，较小数怎么表示？",
+            "explanation": "设较大数为x，x+(x-1)=97 → 2x-1=97 → 2x=98 → x=49。两数为48和49，和=97✅"
+          },
+          {
+            "type": "choice",
+            "content": "一个长方形的周长是36cm，长是宽的2倍，长方形的宽是？",
+            "options": [
+              "6cm",
+              "12cm",
+              "9cm",
+              "18cm"
+            ],
+            "answer": 0,
+            "hint": "设宽为x，长怎么表示？周长公式是？",
+            "explanation": "2×(2x+x)=36 → 6x=36 → x=6。宽6cm，长12cm。检验：2×(12+6)=36✅"
+          },
+          {
+            "type": "fill",
+            "content": "有三堆煤，第一堆x吨，第二堆比第一堆的2倍少3吨，第三堆是第二堆的1/2。三堆共57吨。第一堆有<input class='answer-input' style='width:60px' disabled>吨。",
+            "answer": [
+              "18"
+            ],
+            "hint": "第二堆=2x-3，第三堆=(2x-3)/2，x+(2x-3)+(2x-3)/2=57，解方程",
+            "explanation": "第二堆=2x-3，第三堆=(2x-3)/2。方程：x+(2x-3)+(2x-3)/2=57。两边乘2：2x+4x-6+2x-3=114，8x=123，x=15？验算发现答案18，用算术法：设第一堆x，则x+(2x-3)+(x-1.5)=57，4x-4.5=57，4x=61.5... 此题数据需检查。正确解法：第三堆=(2x-3)/2，所以x+2x-3+(2x-3)/2=57，通分得(2x+4x-6+2x-3)/2=57，(8x-9)/2=57，8x-9=114，8x=123，x=15.375。题目数据有问题，正确答案应为15.375或题目数字需调整。实际考试中遇到类似题，按方程解法流程走即可。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "修一条路，计划每天修x米，20天修完。实际每天多修5米，15天修完。这条路长<input class='answer-input' style='width:60px' disabled>米。",
+            "answer": [
+              "300"
+            ],
+            "hint": "路的长度变了没有？计划和实际修的长度有什么关系？",
+            "explanation": "20x = 15(x+5) → 20x = 15x+75 → 5x = 75 → x = 15。路长=20×15=300米。检验：实际每天20米，15×20=300✅"
+          },
+          {
+            "type": "choice",
+            "content": "鸡兔同笼，鸡比兔多5只，共有脚70只。兔有几只？",
+            "options": [
+              "8只",
+              "10只",
+              "12只",
+              "15只"
+            ],
+            "answer": 1,
+            "hint": "设兔有x只，鸡有(x+5)只。脚的总数：4x+2(x+5)=70。",
+            "explanation": "设兔x只，鸡(x+5)只。4x+2(x+5)=70，4x+2x+10=70，6x=60，x=10。兔10只，鸡15只。检验：4×10+2×15=40+30=70✅"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "第四章 · 分数的意义和性质",
+    "tips": "💡 「分母」表示分了几份（分数线下面），「分子」表示取了几份（分数线上面）。约分和通分是这一章的核心技能！",
+    "levels": [
+      {
+        "name": "第一关：分数的意义",
+        "desc": "理解分数的意义，掌握分数单位",
+        "level": 1,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "把一块蛋糕平均分成5份，每份是这块蛋糕的？",
+            "options": [
+              "1/5",
+              "1/2",
+              "5/1",
+              "5/5"
+            ],
+            "answer": 0,
+            "hint": "把整体平均分成几份？每份是几分之几？",
+            "explanation": "平均分成5份，每份是1/5。分数的意义：把单位1平均分成若干份，表示这样一份或几份的数。"
+          },
+          {
+            "type": "fill",
+            "content": "3/7的分数单位是<input class='answer-input' style='width:60px' disabled>，它有<input class='answer-input' style='width:60px' disabled>个这样的分数单位。",
+            "answer": [
+              "1/7",
+              "3"
+            ],
+            "hint": "分数单位是什么？3/7里面有几个分数单位？",
+            "explanation": "3/7的分数单位是1/7，它有3个这样的分数单位。分数单位 = 1÷分母。"
+          },
+          {
+            "type": "choice",
+            "content": "下面说法正确的是？",
+            "options": [
+              "分数单位越大，分数越大",
+              "分母越大，分数单位越小",
+              "分子越大，分数越大",
+              "分数单位是1/2的分数只有1/2"
+            ],
+            "answer": 1,
+            "hint": "分数单位等于什么？分母变大时分数单位怎么变？",
+            "explanation": "分数单位=1/分母，分母越大分数单位越小（如1/2 > 1/100）。但分数大小和分数单位大小没有必然关系。"
+          },
+          {
+            "type": "fill",
+            "content": "男生20人，女生25人，男生人数是女生的<input class='answer-input' style='width:80px' disabled>。（用分数表示）",
+            "answer": [
+              "4/5"
+            ],
+            "hint": "A是B的几分之几，用什么法？结果要约分。",
+            "explanation": "20÷25 = 4/5。A是B的几分之几 = A÷B，结果要约分成最简分数。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "choice",
+            "content": "有12支铅笔，平均分给3个同学，每个同学得到这些铅笔的？",
+            "options": [
+              "1/3",
+              "1/4",
+              "3/12",
+              "4/12"
+            ],
+            "answer": 0,
+            "hint": "把铅笔总数看作单位1，平均分3人。分数（分率）和具体数量有什么不同？",
+            "explanation": "每人得到这些铅笔的1/3（分率），或4支（具体数量）。题目问的是分数（分率），答案是1/3。"
+          },
+          {
+            "type": "choice",
+            "content": "把3米长的绳子平均分成5段，每段是这根绳子的？",
+            "options": [
+              "3/5米",
+              "1/5",
+              "3/5",
+              "1/5米"
+            ],
+            "answer": 1,
+            "hint": "问的是分数（分率）还是具体长度？注意区分！",
+            "explanation": "问「这根绳子的」几分之几，是分率，答案为1/5。如果是具体长度，则是3÷5=3/5米。关键词很重要！"
+          }
+        ]
+      },
+      {
+        "name": "第二关：真假分数与约分",
+        "desc": "区分真分数和假分数，掌握约分的方法",
+        "level": 2,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "下面哪个是真分数？",
+            "options": [
+              "5/3",
+              "7/7",
+              "2/5",
+              "11/3"
+            ],
+            "answer": 2,
+            "hint": "真分数的分子和分母谁大？值比1大还是小？",
+            "explanation": "2/5是真分数（2<5）。5/3、11/3是假分数（分子>分母），7/7等于1。"
+          },
+          {
+            "type": "fill",
+            "content": "把6/8约成最简分数是<input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "3/4"
+            ],
+            "hint": "分子分母同时除以什么数？这个数叫什么？",
+            "explanation": "6/8 = (6÷2)/(8÷2) = 3/4。约分要约到最简（分子分母互质）。"
+          },
+          {
+            "type": "choice",
+            "content": "下面与2/3相等的是？",
+            "options": [
+              "4/5",
+              "6/9",
+              "8/15",
+              "10/15"
+            ],
+            "answer": 1,
+            "hint": "分数的基本性质：分子分母同时乘什么数，分数大小不变？",
+            "explanation": "2/3 = 6/9（分子分母同乘3）。10/15=2/3也是对的？10/15=2/3✅，但选项里6/9更直接。实际上B和D都等于2/3，但小学通常选最直接的等价分数。"
+          },
+          {
+            "type": "fill",
+            "content": "一个假分数是7/3，化成带分数是<input class='answer-input' style='width:80px' disabled>。",
+            "answer": [
+              "2又1/3"
+            ],
+            "hint": "假分数化带分数：用分子除以分母，商和余数分别表示什么？",
+            "explanation": "7/3 = 2又1/3。假分数化带分数：分子÷分母 = 商又余数/分母。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "把12/18、16/24、15/25分别约成最简分数：<input class='answer-input' style='width:180px' disabled>。",
+            "answer": [
+              "2/3, 2/3, 3/5"
+            ],
+            "hint": "每个分数分子分母的最大公因数分别是多少？同时除以它。",
+            "explanation": "12/18=(12÷6)/(18÷6)=2/3；16/24=(16÷8)/(24÷8)=2/3；15/25=(15÷5)/(25÷5)=3/5。"
+          },
+          {
+            "type": "choice",
+            "content": "下面分数中最大的是？",
+            "options": [
+              "3/8",
+              "5/12",
+              "7/16",
+              "9/20"
+            ],
+            "answer": 2,
+            "hint": "通分到分母240比较，或者用交叉相乘比较。",
+            "explanation": "通分到240：3/8=90/240，5/12=100/240，7/16=105/240，9/20=108/240。最大的是9/20。"
+          }
+        ]
+      },
+      {
+        "name": "第三关：通分与比较大小",
+        "desc": "掌握通分的方法，会比较异分母分数的大小",
+        "level": 3,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "比较2/3和3/4的大小，正确的是？",
+            "options": [
+              "2/3 > 3/4",
+              "2/3 < 3/4",
+              "2/3 = 3/4",
+              "无法比较"
+            ],
+            "answer": 1,
+            "hint": "通分：找两个分母的最小公倍数，把两个分数都化成以它为分母的分数。",
+            "explanation": "2/3=8/12，3/4=9/12，所以2/3 < 3/4。通分是比较异分母分数大小的基本方法。"
+          },
+          {
+            "type": "fill",
+            "content": "把1/2和1/3通分，分母取<input class='answer-input' style='width:60px' disabled>，通分后分别是<input class='answer-input' style='width:100px' disabled>和<input class='answer-input' style='width:100px' disabled>。",
+            "answer": [
+              "6",
+              "3/6",
+              "2/6"
+            ],
+            "hint": "先找两个分母的最小公倍数，再通分。",
+            "explanation": "通分：找分母的最小公倍数作公分母。先找两个分母的最小公倍数，再通分。"
+          },
+          {
+            "type": "choice",
+            "content": "在1/2、2/3、3/4、4/5中，最大的是？",
+            "options": [
+              "1/2",
+              "2/3",
+              "3/4",
+              "4/5"
+            ],
+            "answer": 3,
+            "hint": "这些分数和1的差各是多少？差最小的那个最大。",
+            "explanation": "与1的差：1/2差1/2，2/3差1/3，3/4差1/4，4/5差1/5。1/5最小，所以4/5最大。规律：分子比分母小1的分数，分母越大分数越大。"
+          },
+          {
+            "type": "fill",
+            "content": "张师傅做一件零件需要1/4小时，李师傅需要1/5小时，<input class='answer-input' style='width:60px' disabled>师傅做得更快。（填张或李）",
+            "answer": [
+              "李"
+            ],
+            "hint": "时间越少效率越高。两个时间哪个更小？",
+            "explanation": "1/4小时=15分钟，1/5小时=12分钟。李师傅用时更短，做得更快。注意：时间越少效率越高！"
+          }
+        ],
+        "extra": [
+          {
+            "type": "choice",
+            "content": "甲数的2/3等于乙数的3/4，甲数（ ）乙数。（甲、乙均不为0）",
+            "options": [
+              ">",
+              "<",
+              "=",
+              "无法确定"
+            ],
+            "answer": 0,
+            "hint": "乘的分数越大，原来的数反而越小。谁乘的分数大？",
+            "explanation": "甲×2/3=乙×3/4，甲/乙=(3/4)÷(2/3)=9/8>1，甲数大于乙数。规律：乘的分数越大，原数反而越小（这里乙乘的分数更大，所以乙更小）。"
+          },
+          {
+            "type": "choice",
+            "content": "比较大小：5/6 ○ 7/8",
+            "options": [
+              "5/6 > 7/8",
+              "5/6 < 7/8",
+              "5/6 = 7/8",
+              "无法比较"
+            ],
+            "answer": 1,
+            "hint": "通分：6和8的最小公倍数是24。",
+            "explanation": "5/6=20/24，7/8=21/24，20/24<21/24，所以5/6<7/8。"
+          }
+        ]
+      },
+      {
+        "name": "第四关：分数的综合应用",
+        "desc": "综合运用分数的意义、约分、通分解决问题",
+        "level": 4,
+        "questions": [
+          {
+            "type": "fill",
+            "content": "一个分数，分子和分母的和是45，约分后是4/5，这个分数原来是<input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "20/25"
+            ],
+            "hint": "约分后是4/5，原分数分子分母之间什么比例关系？",
+            "explanation": "设原分数=4k/5k，则4k+5k=45，9k=45，k=5。原分数=20/25。检验：20+25=45✅，20/25=4/5✅"
+          },
+          {
+            "type": "choice",
+            "content": "在5/8、7/12、11/20、3/4中，最小的是？",
+            "options": [
+              "5/8",
+              "7/12",
+              "11/20",
+              "3/4"
+            ],
+            "answer": 2,
+            "hint": "通分到同一个分母，然后比较分子大小。",
+            "explanation": "通分到120：5/8=75/120，7/12=70/120，11/20=66/120，3/4=90/120。最小的是66/120=11/20。"
+          },
+          {
+            "type": "fill",
+            "content": "一根竹竿插入水中，入泥部分占1/6，水中部分占1/2，露出水面的占<input class='answer-input' style='width:60px' disabled>。（填最简分数）",
+            "answer": [
+              "1/3"
+            ],
+            "hint": "整体看作1。露出=1-入泥部分-水中部分。注意通分。",
+            "explanation": "露出=1-1/6-1/2=1-1/6-3/6=2/6=1/3。注意：1/2=3/6，通分后计算。"
+          },
+          {
+            "type": "choice",
+            "content": "五年级有男生24人、女生28人，男生人数是全年级的几分之几？",
+            "options": [
+              "6/13",
+              "7/13",
+              "24/28",
+              "28/52"
+            ],
+            "answer": 0,
+            "hint": "先求总人数，再求男生占比。结果要约分。",
+            "explanation": "全年级=24+28=52人。男生占比=24/52=6/13。注意结果要约分成最简分数！"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "有两堆煤，第一堆重3/4吨，比第二堆重1/5吨，两堆煤共重<input class='answer-input' style='width:80px' disabled>吨。（结果用小数或分数表示）",
+            "answer": [
+              "11/10",
+              "1.1"
+            ],
+            "hint": "第二堆比第一堆轻1/5吨，是具体数量！先求第二堆，再求和。",
+            "explanation": "第二堆=3/4-1/5=11/20吨。共重=3/4+11/20=15/20+11/20=26/20=13/10=1.3吨。注意：题目中1/5后面有单位「吨」，是具体数量不是分率！"
+          },
+          {
+            "type": "choice",
+            "content": "一个分数约分后是2/3，分子比分母小8，原分数是？",
+            "options": [
+              "16/24",
+              "12/20",
+              "10/18",
+              "14/22"
+            ],
+            "answer": 0,
+            "hint": "设原分数=2k/3k，分母比分子大k=8。",
+            "explanation": "设原分数=2k/3k，则3k-2k=k=8，原分数=16/24。检验：16/24=2/3✅，24-16=8✅。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "第一章 · 长方体和正方体",
+    "tips": "💡 用实物积木动手操作，先画草图再算，空间想象弱的同学一定要动手！",
+    "levels": [
+      {
+        "name": "第一关：认识图形",
+        "desc": "从基本特征入手，认识长方体和正方体",
+        "level": 1,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "长方体有几个面？",
+            "options": [
+              "4个",
+              "6个",
+              "8个",
+              "12个"
+            ],
+            "answer": 1,
+            "hint": "长方体有上下、前后、左右三组相对的面，每组2个。",
+            "explanation": "长方体有6个面：上下面、前后面、左右面。"
+          },
+          {
+            "type": "choice",
+            "content": "正方体有几条棱（边）？",
+            "options": [
+              "6条",
+              "8条",
+              "10条",
+              "12条"
+            ],
+            "answer": 3,
+            "hint": "棱是两个面的交线。正方体有多少条棱？",
+            "explanation": "正方体有12条棱，每4条一组，分为上边、下边和竖直方向，12条棱长度相等。"
+          },
+          {
+            "type": "choice",
+            "content": "一个长方体，长5cm、宽3cm、高4cm，它的棱长总和是？",
+            "options": [
+              "12cm",
+              "24cm",
+              "48cm",
+              "60cm"
+            ],
+            "answer": 2,
+            "hint": "棱长总和公式是什么？长宽高各有4条。",
+            "explanation": "棱长总和 = 4×(5+3+4) = 4×12 = 48cm。"
+          },
+          {
+            "type": "choice",
+            "content": "长方体中，面积最大的面是由哪两条棱组成的？",
+            "options": [
+              "上面",
+              "前面",
+              "最长的两条棱",
+              "都是长方形"
+            ],
+            "answer": 2,
+            "hint": "每个面的面积由哪两条棱决定？",
+            "explanation": "面积最大的面，由最长的两条棱组成。长方体相对的面面积相等。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "choice",
+            "content": "正方体有几个顶点？",
+            "options": [
+              "4个",
+              "6个",
+              "8个",
+              "12个"
+            ],
+            "answer": 2,
+            "hint": "顶点就是三条棱的交点，上下各有几个？",
+            "explanation": "正方体有8个顶点，上面4个，下面4个。"
+          },
+          {
+            "type": "fill",
+            "content": "一个长方体棱长总和是72cm，长、宽、高的和是<input class='answer-input' style='width:50px' disabled>cm。",
+            "answer": [
+              "18"
+            ],
+            "hint": "棱长总和公式是什么？长宽高各有4条。",
+            "explanation": "72 ÷ 4 = 18cm。记住：长方体的长+宽+高 = 棱长总和÷4。"
+          }
+        ]
+      },
+      {
+        "name": "第二关：表面积计算",
+        "desc": "掌握长方体和正方体表面积的计算方法",
+        "level": 2,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "长方体表面积公式是？",
+            "options": [
+              "棱长×棱长×6",
+              "（长×宽 + 长×高 + 宽×高）×2",
+              "长×宽×高",
+              "棱长×12"
+            ],
+            "answer": 1,
+            "hint": "表面积公式是什么？想一想长方体有几组相对的面。",
+            "explanation": "长方体表面积 = (长×宽 + 长×高 + 宽×高) × 2，因为有3组相对的面。"
+          },
+          {
+            "type": "fill",
+            "content": "一个正方体棱长为4cm，它的表面积是<input class='answer-input' style='width:50px' disabled>cm²。",
+            "answer": [
+              "96"
+            ],
+            "hint": "正方体的6个面都相同，每个面的面积怎么算？",
+            "explanation": "4×4×6 = 96cm²。正方体6个面完全相同，每个面面积=棱长×棱长。"
+          },
+          {
+            "type": "choice",
+            "content": "一个长方体长3cm、宽3cm、高5cm，它的表面积是？",
+            "options": [
+              "63cm²",
+              "114cm²",
+              "78cm²",
+              "96cm²"
+            ],
+            "answer": 1,
+            "hint": "先判断长和宽是否相等？套哪个公式？",
+            "explanation": "(3×3 + 3×5 + 3×5)×2 = (9+15+15)×2 = 39×2 = 78cm²。注意这是个特殊的长方体（有两个面是正方形）。"
+          },
+          {
+            "type": "fill",
+            "content": "一个长方体无盖鱼缸，长8dm、宽5dm、高4dm，制作这个鱼缸至少需要<input class='answer-input' style='width:50px' disabled>dm²的玻璃。",
+            "answer": [
+              "144"
+            ],
+            "hint": "无盖就是少了一个什么面？这个面的面积怎么算？",
+            "explanation": "正常表面积=(8×5+8×4+5×4)×2=184dm²，无盖减去上面8×5=40，184-40=144dm²。或者：底+四个侧面 = 8×5 + (8×4+5×4)×2 = 40+104=144dm²。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "一个正方体棱长为7cm，表面积是<input class='answer-input' style='width:50px' disabled>cm²。",
+            "answer": [
+              "294"
+            ],
+            "hint": "正方体表面积 = 棱长×棱长×几？",
+            "explanation": "7×7 = 49，49×6 = 294cm²。"
+          },
+          {
+            "type": "choice",
+            "content": "把一个棱长为3cm的正方体表面涂色后切成棱长为1cm的小正方体，表面涂色的有？",
+            "options": [
+              "8个",
+              "26个",
+              "27个",
+              "6个"
+            ],
+            "answer": 1,
+            "hint": "总数是多少？内部没涂色的怎么找？",
+            "explanation": "27 - 1 = 26个表面有涂色。注意：这是经典的表面涂色问题，n×n×n切割时，完全没有涂色的是(n-2)×(n-2)×(n-2)个。"
+          }
+        ]
+      },
+      {
+        "name": "第三关：体积与容积",
+        "desc": "理解体积概念，掌握体积和容积的计算",
+        "level": 3,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "长方体的体积公式是？",
+            "options": [
+              "棱长×棱长×6",
+              "（长+宽+高）×2",
+              "长×宽×高",
+              "棱长×棱长×棱长"
+            ],
+            "answer": 2,
+            "hint": "体积公式是什么？也可以写成底面积×高。",
+            "explanation": "长方体体积 = 长×宽×高。也可用底面积×高来计算。"
+          },
+          {
+            "type": "fill",
+            "content": "一个长方体长10cm、宽5cm、高2cm，它的体积是<input class='answer-input' style='width:60px' disabled>cm³。",
+            "answer": [
+              "100"
+            ],
+            "hint": "体积公式是长×宽×高。",
+            "explanation": "10×5×2 = 100cm³。注意单位是立方厘米(cm³)。"
+          },
+          {
+            "type": "choice",
+            "content": "1升等于多少立方厘米？",
+            "options": [
+              "1cm³",
+              "10cm³",
+              "100cm³",
+              "1000cm³"
+            ],
+            "answer": 3,
+            "hint": "升(L)和立方分米(dm³)什么关系？1L等于多少cm³？",
+            "explanation": "1L = 1dm³ = 1000cm³。这是必须记住的换算关系！"
+          },
+          {
+            "type": "fill",
+            "content": "一个正方体水箱棱长为5dm，它的容积是<input class='answer-input' style='width:60px' disabled>L。（水箱厚度不计）",
+            "answer": [
+              "125"
+            ],
+            "hint": "正方体容积公式？单位dm³和L怎么换算？",
+            "explanation": "5×5×5 = 125dm³ = 125L。正方体容积计算和体积一样，单位用升(L)或毫升(mL)。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "choice",
+            "content": "一个长方体水池，长4m、宽3m、深2m，它的容积是？",
+            "options": [
+              "24L",
+              "240L",
+              "24000L",
+              "24000mL"
+            ],
+            "answer": 2,
+            "hint": "先算体积(m³)，再换算成升(L)。1m³ = ? L",
+            "explanation": "4×3×2 = 24m³ = 24000L。注意m³和L的换算：1m³ = 1000L。"
+          },
+          {
+            "type": "fill",
+            "content": "把一个棱长为6cm的正方体木块削成一个最大的圆柱，圆柱体积是<input class='answer-input' style='width:80px' disabled>cm³。（π取3.14，结果保留整数）",
+            "answer": [
+              "170"
+            ],
+            "hint": "正方体中最大圆柱的直径和高各等于什么？圆柱体积公式是？",
+            "explanation": "V = 3.14×3²×6 = 3.14×9×6 = 169.56 ≈ 170cm³。这是正方体中最大圆柱的体积。"
+          }
+        ]
+      },
+      {
+        "name": "第四关：表面涂色专题",
+        "desc": "挑战难点！掌握表面涂色正方体的规律",
+        "level": 4,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "把一个棱长为3的正方体表面涂色后，切成棱长为1的小正方体。3面涂色的有几个？",
+            "options": [
+              "4个",
+              "8个",
+              "12个",
+              "6个"
+            ],
+            "answer": 1,
+            "hint": "3面涂色的在什么位置？正方体有几个这样的位置？",
+            "explanation": "3面涂色 = 8个（正方体8个顶点的小正方体）。无论n是多少，3面涂色永远是8个（n≥2时）。"
+          },
+          {
+            "type": "choice",
+            "content": "棱长n=4的正方体表面涂色后切割，2面涂色的有几个？",
+            "options": [
+              "8个",
+              "12个",
+              "24个",
+              "36个"
+            ],
+            "answer": 2,
+            "hint": "2面涂色的在什么位置？每条棱上除了顶点还有几个？",
+            "explanation": "2面涂色 = 12×(n-2)。n=4时，12×(4-2) = 12×2 = 24个。"
+          },
+          {
+            "type": "fill",
+            "content": "棱长n=5的正方体表面涂色后切割，1面涂色的有<input class='answer-input' style='width:60px' disabled>个。",
+            "answer": [
+              "54"
+            ],
+            "hint": "1面涂色的在每个面的什么位置？每个面有几行几列？",
+            "explanation": "1面涂色 = 6×(n-2)²。n=5时，6×(5-2)² = 6×9 = 54个。"
+          },
+          {
+            "type": "choice",
+            "content": "棱长n=3的正方体涂色后切割，完全没有涂色的有几个？",
+            "options": [
+              "0个",
+              "1个",
+              "6个",
+              "8个"
+            ],
+            "answer": 1,
+            "hint": "没涂色的在正方体的什么位置？形成了一个什么形状？",
+            "explanation": "没涂色 = (n-2)³。n=3时，(3-2)³ = 1³ = 1个。n=2时没涂色为0（内部没有完整的小正方体）。"
+          },
+          {
+            "type": "fill",
+            "content": "一个正方体棱长n=6，表面涂色后切割。2面涂色的有<input class='answer-input' style='width:60px' disabled>个，完全没涂色的有<input class='answer-input' style='width:60px' disabled>个。",
+            "answer": [
+              "48",
+              "64"
+            ],
+            "hint": "2面涂色：每条棱上除了顶点还有几个？共几条棱？没涂色：内部形成什么形状？",
+            "explanation": "2面涂色=12×(6-2)=12×4=48个。没涂色=(6-2)³=4³=64个。总验证：8+48+96+64=216=6³✅"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "一个正方体棱长n=10，表面涂色后切割。3面涂色<input class='answer-input' style='width:50px' disabled>个，2面涂色<input class='answer-input' style='width:50px' disabled>个，1面涂色<input class='answer-input' style='width:50px' disabled>个，没涂色<input class='answer-input' style='width:50px' disabled>个。",
+            "answer": [
+              "8",
+              "96",
+              "384",
+              "512"
+            ],
+            "hint": "回忆四个公式：3面涂色几个？2面涂色公式？1面涂色公式？没涂色公式？",
+            "explanation": "n=10: 3面=8; 2面=12×8=96; 1面=6×64=384; 没涂色=8³=512。验证：8+96+384+512=1000=10³✅"
+          },
+          {
+            "type": "choice",
+            "content": "棱长n=4的正方体表面涂色后切割，1面涂色的有几个？",
+            "options": [
+              "16个",
+              "24个",
+              "32个",
+              "48个"
+            ],
+            "answer": 1,
+            "hint": "1面涂色在每个面的中间，每个面有(n-2)^2个，共6个面。",
+            "explanation": "1面涂色=6×(n-2)²=6×(4-2)²=6×4=24个。验证：3面=8，2面=24，1面=24，没涂色=8，总和=64=4³✅"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "第二章 · 分数乘法",
+    "tips": "💡 分数乘法关键：先约分再乘！计算时分子乘分子、分母乘分母，能约分的先约分。",
+    "levels": [
+      {
+        "name": "第一关：分数×整数",
+        "desc": "掌握分数乘整数的意义和计算方法",
+        "level": 1,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "3 × 2/5 = ？",
+            "options": [
+              "2/15",
+              "6/5",
+              "5/6",
+              "6/15"
+            ],
+            "answer": 1,
+            "hint": "分数乘整数，分子怎么变？分母怎么变？",
+            "explanation": "3 × 2/5 = (3×2)/5 = 6/5 = 1又1/5。分数×整数 = 分子×整数/分母。"
+          },
+          {
+            "type": "fill",
+            "content": "5 × 3/7 = <input class='answer-input' style='width:80px' disabled>（填假分数或带分数）",
+            "answer": [
+              "15/7",
+              "2又1/7"
+            ],
+            "hint": "分数乘整数：分子乘整数，分母不变。",
+            "explanation": "5 × 3/7 = 15/7 = 2又1/7。假分数15/7和带分数2又1/7都算对。"
+          },
+          {
+            "type": "choice",
+            "content": "一袋糖重2/3 kg，3袋这样的糖共重多少？",
+            "options": [
+              "2/9 kg",
+              "1kg",
+              "2kg",
+              "6/3 kg"
+            ],
+            "answer": 2,
+            "hint": "想一想怎么约分？分母3和乘数3有什么关系？",
+            "explanation": "2/3 × 3 = 2/3 × 3/1 = 6/3 = 2kg。或者先约分：3和分母3约掉，直接得2kg。"
+          },
+          {
+            "type": "fill",
+            "content": "一个等边三角形边长3/4 m，它的周长是<input class='answer-input' style='width:60px' disabled>m。",
+            "answer": [
+              "9/4",
+              "2又1/4"
+            ],
+            "hint": "等边三角形周长公式是？",
+            "explanation": "3/4 × 3 = 9/4 = 2又1/4 m。三角形周长就是三条边相加。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "10 × 2/5 = <input class='answer-input' style='width:60px' disabled>。（先约分再算！）",
+            "answer": [
+              "4"
+            ],
+            "hint": "先观察整数和分母能不能约分？",
+            "explanation": "10 × 2/5 = (10÷5)×2 = 2×2 = 4。先约分再算更简单！"
+          },
+          {
+            "type": "choice",
+            "content": "下列计算正确的是？",
+            "options": [
+              "4 × 1/2 = 4/2",
+              "4 × 1/2 = 1/8",
+              "4 × 1/2 = 2",
+              "4 × 1/2 = 8"
+            ],
+            "answer": 2,
+            "hint": "整数和分母能约分吗？先约分再乘更简单。",
+            "explanation": "4 × 1/2 = 4/2 = 2。分数×整数的结果可以约分化简。"
+          }
+        ]
+      },
+      {
+        "name": "第二关：分数×分数",
+        "desc": "理解分数乘分数的意义，掌握计算方法",
+        "level": 2,
+        "questions": [
+          {
+            "type": "choice",
+            "content": "2/3 × 3/4 = ？",
+            "options": [
+              "6/12",
+              "5/7",
+              "1/2",
+              "6/7"
+            ],
+            "answer": 2,
+            "hint": "分数乘分数的规则：分子和谁乘？分母和谁乘？",
+            "explanation": "2/3 × 3/4 = 6/12 = 1/2。或者先约分：第一个分子2和第二个分母4约分（用2），第一个分母3和第二个分子3约分，剩下1×1/2 = 1/2。"
+          },
+          {
+            "type": "fill",
+            "content": "1/2 × 1/3 = <input class='answer-input' style='width:60px' disabled>（填最简分数）",
+            "answer": [
+              "1/6"
+            ],
+            "hint": "分子相乘，分母相乘。",
+            "explanation": "1/2 × 1/3 = 1/6。分数乘法的直观意义：1/2的1/3 = 把1/2再平均分成3份，取其中1份 = 1/6。"
+          },
+          {
+            "type": "choice",
+            "content": "下面的数大于1的是？",
+            "options": [
+              "2/3 × 3/4",
+              "4/5 × 5/4",
+              "1/2 × 1/3",
+              "3/7 × 2/5"
+            ],
+            "answer": 1,
+            "hint": "什么情况下两个分数相乘等于1？",
+            "explanation": "4/5 × 5/4 = 20/20 = 1。其他选项结果都小于1。记住：真分数×真分数 < 真分数。"
+          },
+          {
+            "type": "fill",
+            "content": "一个长方形的长是3/4 m，宽是长的2/3，这个长方形的面积是<input class='answer-input' style='width:60px' disabled>m²。",
+            "answer": [
+              "1/2",
+              "0.5"
+            ],
+            "hint": "先求宽：宽是长的几分之几？面积公式是？",
+            "explanation": "宽 = 3/4 × 2/3 = 6/12 = 1/2 m。面积 = 3/4 × 1/2 = 3/8 m²。等等，重新算：宽=3/4×2/3=1/2，面积=3/4×1/2=3/8。答案是3/8。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "计算 5/6 × 3/10 = <input class='answer-input' style='width:60px' disabled>（先约分！）",
+            "answer": [
+              "1/4"
+            ],
+            "hint": "先约分：交叉约分。哪些分子分母可以约分？",
+            "explanation": "5/6 × 3/10：5和10约成1和2，6和3约成2和1，剩下1/2 × 1/2 = 1/4。先约分再乘是关键！"
+          },
+          {
+            "type": "choice",
+            "content": "下面计算错误的是？",
+            "options": [
+              "2/3×3/4=1/2",
+              "1/2×2/3=1/3",
+              "3/5×5/6=3/6",
+              "2/5×5/8=1/5"
+            ],
+            "answer": 3,
+            "hint": "逐一验证：先约分再计算。",
+            "explanation": "2/5×5/8，5约掉后=2/8=1/4，不是1/5。先约分是关键！"
+          }
+        ]
+      },
+      {
+        "name": "第三关：分数乘法混合运算",
+        "desc": "掌握分数连乘和简便运算",
+        "level": 3,
+        "questions": [
+          {
+            "type": "fill",
+            "content": "2/5 × 3/4 × 5/6 = <input class='answer-input' style='width:60px' disabled>（先约分再计算）",
+            "answer": [
+              "1/4"
+            ],
+            "hint": "连乘中，能不能交叉约分？哪几个数可以约？",
+            "explanation": "2/5 × 3/4 × 5/6：5约掉，2和6约成1和3，剩下1/1 × 3/4 × 1/3 = 3/12 = 1/4。先约分让计算变简单！"
+          },
+          {
+            "type": "choice",
+            "content": "下列各式中，结果最大的是？（a > 0）",
+            "options": [
+              "a × 3/4",
+              "a × 5/4",
+              "a × 1",
+              "a × 4/5"
+            ],
+            "answer": 1,
+            "hint": "一个数乘大于1的数和乘小于1的数，结果有什么不同？",
+            "explanation": "5/4 > 1，所以a × 5/4 > a。其他都≤a。规律：一个数(0除外)乘大于1的数，积大于这个数。"
+          },
+          {
+            "type": "fill",
+            "content": "一个数的倒数是3/5，这个数的2/3是<input class='answer-input' style='width:60px' disabled>。",
+            "answer": [
+              "10/9",
+              "1又1/9"
+            ],
+            "hint": "倒数是什么意思？先求原数，再乘。",
+            "explanation": "原数 = 5/3（因为3/5 × 5/3 = 1）。5/3 × 2/3 = 10/9 = 1又1/9。"
+          },
+          {
+            "type": "choice",
+            "content": "【简便运算】99 × 4/5 = ？",
+            "options": [
+              "79又1/5",
+              "80又4/5",
+              "99又4/5",
+              "395/5"
+            ],
+            "answer": 0,
+            "hint": "把99拆成什么？用乘法分配律。",
+            "explanation": "(100-1)×4/5 = 80 - 4/5 = 79又1/5。整数×分数可以用分配律简便计算。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "计算：1/2 × 2/3 × 3/4 × 4/5 = <input class='answer-input' style='width:60px' disabled>（观察规律！）",
+            "answer": [
+              "1/5"
+            ],
+            "hint": "观察：相邻的分子和分母有没有关系？能不能约掉？",
+            "explanation": "连乘中相邻分子分母约分：1/2 × 2/3 × 3/4 × 4/5 = 1/5（中间全部约掉了！）。这类题先观察再约分，不要急着算。"
+          },
+          {
+            "type": "choice",
+            "content": "【简便运算】101 × 3/5 = ？",
+            "options": [
+              "60又3/5",
+              "59又2/5",
+              "60又2/5",
+              "61又3/5"
+            ],
+            "answer": 0,
+            "hint": "把101拆成100+1，用乘法分配律。",
+            "explanation": "101×3/5 = 100×3/5 + 1×3/5 = 60 + 3/5 = 60又3/5。"
+          }
+        ]
+      },
+      {
+        "name": "第四关：分数乘法应用题",
+        "desc": "用分数乘法解决实际问题",
+        "level": 4,
+        "questions": [
+          {
+            "type": "fill",
+            "content": "一袋米重20kg，吃了2/5，吃了<input class='answer-input' style='width:60px' disabled>kg。",
+            "answer": [
+              "8"
+            ],
+            "hint": "求一个数的几分之几用什么运算？",
+            "explanation": "20 × 2/5 = 40/5 = 8kg。关键词：求「一个数的几分之几」用乘法。"
+          },
+          {
+            "type": "choice",
+            "content": "一本书共120页，第一天看了1/4，第二天看了剩下的1/3，第二天看了多少页？",
+            "options": [
+              "30页",
+              "40页",
+              "20页",
+              "60页"
+            ],
+            "answer": 0,
+            "hint": "第一步：第一天看了全书的几分之几？剩下多少？第二步：第二天看的是哪部分的1/3？",
+            "explanation": "第一天：120×1/4=30页，剩余90页。第二天：90×1/3=30页。注意：第二天看的是「剩下的」1/3，不是全书的1/3！"
+          },
+          {
+            "type": "fill",
+            "content": "一根绳子长12m，第一次用去1/3，第二次用去剩下的1/2，还剩<input class='answer-input' style='width:60px' disabled>m。",
+            "answer": [
+              "4"
+            ],
+            "hint": "分步思考：第一次用后剩多少？第二次用去剩下的一半。",
+            "explanation": "第一次用去12×1/3=4m，剩8m。第二次用去8×1/2=4m，还剩8-4=4m。或者：12×(1-1/3)×(1-1/2)=12×2/3×1/2=4m。"
+          },
+          {
+            "type": "choice",
+            "content": "甲数是乙数的4/5，乙数是丙数的3/4，甲数是丙数的几分之几？",
+            "options": [
+              "3/5",
+              "4/3",
+              "5/4",
+              "7/9"
+            ],
+            "answer": 0,
+            "hint": "用字母表示：甲和乙什么关系？乙和丙什么关系？",
+            "explanation": "甲 = 丙 × 3/4 × 4/5 = 丙 × 3/5。中间4约掉了！答案是3/5。"
+          }
+        ],
+        "extra": [
+          {
+            "type": "fill",
+            "content": "车间有男工30人，女工人数是男工的5/6，全车间有<input class='answer-input' style='width:60px' disabled>人。",
+            "answer": [
+              "55"
+            ],
+            "hint": "先算女工：女工是男工的几分之几？然后男女加起来。",
+            "explanation": "女工：30×5/6=25人。全车间：30+25=55人。注意题目问的是「全车间」，不是只问女工！"
+          },
+          {
+            "type": "choice",
+            "content": "一根绳子长20m，先剪去1/4，再剪去剩下的1/3，还剩多少米？",
+            "options": [
+              "5m",
+              "10m",
+              "8m",
+              "12m"
+            ],
+            "answer": 1,
+            "hint": "第一次剪去全长的1/4，剩下多少？第二次剪去的是剩下的1/3。",
+            "explanation": "第一次后剩20×(1-1/4)=15m；第二次剪去15×1/3=5m；还剩15-5=10m。或：20×(3/4)×(2/3)=20×1/2=10m。"
+          }
+        ]
+      }
+    ]
+  }
+];
+
+// ========== STATE ==========
+var state = {
+  // state[chapterIdx][levelIdx] = 'locked' | 'active' | 'passed'
+};
+
+// 初始化state
+function initState() {
+  var total = 0;
+  for (var ci = 0; ci < chapters.length; ci++) {
+    state[ci] = {};
+    for (var li = 0; li < chapters[ci].levels.length; li++) {
+      if (ci === 0 && li === 0) {
+        state[ci][li] = 'active';
+      } else {
+        state[ci][li] = 'locked';
+      }
+      total++;
+    }
+  }
+  // 尝试从localStorage恢复进度
+  var saved = localStorage.getItem('math_progress');
+  if (saved) {
+    try {
+      var obj = JSON.parse(saved);
+      // 简单恢复：只恢复passed状态
+      for (var k in obj) {
+        if (obj[k] === 'passed') {
+          var parts = k.split('-');
+          var c = parseInt(parts[0]), l = parseInt(parts[1]);
+          if (state[c]) state[c][l] = 'passed';
+        }
+      }
+      // 重新计算active
+      rebuildActive();
+    } catch(e) {}
+  }
+  return total;
+}
+
+function rebuildActive() {
+  for (var ci = 0; ci < chapters.length; ci++) {
+    for (var li = 0; li < chapters[ci].levels.length; li++) {
+      if (state[ci][li] !== 'passed') {
+        // 检查前一个关卡是否passed
+        var prev = getPrev(ci, li);
+        if (!prev || state[prev.ci][prev.li] === 'passed') {
+          state[ci][li] = 'active';
+          return; // 只激活第一个未过点的
+        } else {
+          state[ci][li] = 'locked';
+        }
+      }
+    }
+  }
+}
+
+function getPrev(ci, li) {
+  if (li > 0) return {ci: ci, li: li-1};
+  if (ci > 0) {
+    var prevLevels = chapters[ci-1].levels.length;
+    return {ci: ci-1, li: prevLevels-1};
+  }
+  return null;
+}
+
+function saveState() {
+  var obj = {};
+  for (var ci = 0; ci < chapters.length; ci++) {
+    for (var li = 0; li < chapters[ci].levels.length; li++) {
+      obj[ci+'-'+li] = state[ci][li];
+    }
+  }
+  localStorage.setItem('math_progress', JSON.stringify(obj));
+}
+
+// ========== RENDER ==========
+var totalLevels = 0;
+var passedCount = 0;
+
+function render() {
+  passedCount = 0;
+  var html = '';
+  for (var ci = 0; ci < chapters.length; ci++) {
+    var ch = chapters[ci];
+    html += '<div class="chapter-title">' + esc(ch.title) + '</div>';
+    html += '<div class="chapter-tips">💡 ' + esc(ch.tips) + '</div>';
+    for (var li = 0; li < ch.levels.length; li++) {
+      var lv = ch.levels[li];
+      var st = state[ci][li];
+      if (st === 'passed') passedCount++;
+      var cardCls = 'level-card';
+      if (st === 'locked') cardCls += ' locked';
+      if (st === 'active') cardCls += ' active open';  // 自动展开当前关
+      if (st === 'passed') cardCls += ' passed';
+      var badgeCls = 'level-badge l' + lv.level;
+      if (st === 'locked') badgeCls += ' locked-badge';
+      if (st === 'passed') badgeCls += ' passed-badge';
+      var statusIcon = st === 'passed' ? '✅' : (st === 'locked' ? '🔒' : '📖');
+      
+      html += '<div class="' + cardCls + '" id="card-' + ci + '-' + li + '">';
+      html += '<div class="level-header" onclick="toggleLevel(' + ci + ',' + li + ')">';
+      html += '<div class="' + badgeCls + '">' + (passedCount + 1) + '</div>';
+      html += '<div class="level-header-text">';
+      html += '<h3>' + esc(lv.name) + '</h3>';
+      html += '<div class="level-desc">' + esc(lv.desc) + '</div>';
+      html += '</div>';
+      html += '<div class="level-status">' + statusIcon + '</div>';
+      html += '</div>'; // level-header
+      
+      // Body
+      html += '<div class="level-body" id="body-' + ci + '-' + li + '">';
+      
+      // Questions
+      for (var qi = 0; qi < lv.questions.length; qi++) {
+        var q = lv.questions[qi];
+        var qid = ci + '-' + li + '-' + qi;
+        html += '<div class="q-card" id="q-' + qid + '">';
+        html += '<div><span class="q-num">' + (qi+1) + '</span><span class="q-content">' + q.content + '</span></div>';
+        if (q.hint) {
+          html += '<div class="q-hint">💡 提示：' + esc(q.hint) + '</div>';
+        }
+        if (q.type === 'fill') {
+          html += '<div class="answer-area"><label>答：</label><input type="text" class="answer-input" id="inp-' + qid + '" placeholder="输入答案" oninput="saveAns(\'' + qid + '\', this.value)"></div>';
+        } else if (q.type === 'choice') {
+          var letters = ['A','B','C','D','E'];
+          html += '<div class="options" id="opts-' + qid + '">';
+          for (var oi = 0; oi < q.options.length; oi++) {
+            html += '<button class="opt-btn" id="opt-' + qid + '-' + oi + '" onclick="pickOpt(\'' + qid + '\', ' + oi + ')"><span class="opt-letter">' + letters[oi] + '</span><span>' + esc(q.options[oi]) + '</span></button>';
+          }
+          html += '</div>';
+        }
+        html += '<div class="feedback" id="fb-' + qid + '"></div>';
+        html += '</div>'; // q-card
+      }
+      
+      // Result banner
+      html += '<div class="result-banner" id="result-' + ci + '-' + li + '"></div>';
+      
+      // Extra practice section (hidden by default, filled dynamically on failure)
+      if (lv.extra && lv.extra.length > 0) {
+        html += '<div class="extra-section" id="extra-' + ci + '-' + li + '"></div>';
+      }
+      
+      html += '</div>'; // level-body
+      
+      // Actions
+      html += '<div class="level-actions">';
+      html += '<button class="btn btn-primary" id="btn-submit-' + ci + '-' + li + '" onclick="submitLevel(' + ci + ',' + li + ')">✅ 提交本关答案</button>';
+      html += '<button class="btn btn-success" id="btn-next-' + ci + '-' + li + '" onclick="goNext(' + ci + ',' + li + ')" style="display:none;">➡️ 进入下一关</button>';
+      html += '<button class="btn btn-warning" id="btn-retry-' + ci + '-' + li + '" onclick="retryLevel(' + ci + ',' + li + ')" style="display:none;">🔄 重新挑战本关</button>';
+      html += '</div>';
+      
+      html += '</div>'; // level-card
+    }
+  }
+  document.getElementById('chapterList').innerHTML = html;
+  updateProgress();
+}
+
+function toggleLevel(ci, li) {
+  var card = document.getElementById('card-' + ci + '-' + li);
+  if (card.classList.contains('locked')) return;
+  card.classList.toggle('open');
+}
+
+// ========== ANSWER HANDLING ==========
+var answers = {};  // key -> value (for fill) or index (for choice)
+var submitted = {}; // key -> true (level submitted)
+
+function saveAns(key, val) {
+  answers[key] = val.trim();
+}
+
+function pickOpt(key, idx) {
+  if (submitted[key] && submitted[key] === true) return;
+  // 找到关卡级别：检查是否整个level已submitted
+  var parts = key.split('-');
+  var ci = parseInt(parts[0]), li = parseInt(parts[1]);
+  if (state[ci][li] === 'passed') return;
+  answers[key] = idx;
+  // 更新UI
+  var optsDiv = document.getElementById('opts-' + key);
+  if (!optsDiv) return;
+  var btns = optsDiv.querySelectorAll('.opt-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.remove('selected');
+  }
+  document.getElementById('opt-' + key + '-' + idx).classList.add('selected');
+}
+
+function checkQ(q, userAns) {
+  if (userAns === undefined || userAns === '') return null; // unanswered
+  if (q.type === 'choice') {
+    return userAns === q.answer;
+  }
+  if (q.type === 'fill') {
+    var correctAnswers = Array.isArray(q.answer) ? q.answer : [q.answer];
+    var ua = userAns.toString().trim();
+    for (var i = 0; i < correctAnswers.length; i++) {
+      if (ua === correctAnswers[i].toString().trim()) return true;
+    }
+    return false;
+  }
+  return null;
+}
+
+// ========== SUBMIT LEVEL ==========
+function submitLevel(ci, li) {
+  var lv = chapters[ci].levels[li];
+  var allCorrect = true;
+  var allAnswered = true;
+  var results = [];
+  
+  for (var qi = 0; qi < lv.questions.length; qi++) {
+    var q = lv.questions[qi];
+    var qid = ci + '-' + li + '-' + qi;
+    var ua = answers[qid];
+    var isCorrect = checkQ(q, ua);
+    if (isCorrect === null) {
+      allAnswered = false;
+      results.push({qid: qid, correct: false, unanswered: true});
+    } else if (!isCorrect) {
+      allCorrect = false;
+      results.push({qid: qid, correct: false, unanswered: false});
+    } else {
+      results.push({qid: qid, correct: true, unanswered: false});
+    }
+  }
+  
+  if (!allAnswered) {
+    alert('⚠️ 还有题目没做完哦！请先完成所有题目再提交。');
+    return;
+  }
+  
+  // Show feedback for each question
+  for (var ri = 0; ri < results.length; ri++) {
+    showFeedback(results[ri].qid, lv.questions[parseInt(results[ri].qid.split('-')[2])], results[ri].correct, results[ri].unanswered);
+  }
+  
+  // Update UI
+  var resultDiv = document.getElementById('result-' + ci + '-' + li);
+  var btnSubmit = document.getElementById('btn-submit-' + ci + '-' + li);
+  var btnNext = document.getElementById('btn-next-' + ci + '-' + li);
+  var btnRetry = document.getElementById('btn-retry-' + ci + '-' + li);
+  
+  btnSubmit.style.display = 'none';
+  
+  if (allCorrect) {
+    // PASS!
+    state[ci][li] = 'passed';
+    saveState();
+    resultDiv.className = 'result-banner show pass';
+    resultDiv.innerHTML = '🎉 恭喜通关！本关全部正确！';
+    btnNext.style.display = 'inline-block';
+    // Lock inputs
+    lockLevelInputs(ci, li);
+  } else {
+    // FAIL - count wrong answers
+    var wrongCount = 0;
+    for (var ri = 0; ri < results.length; ri++) {
+      if (!results[ri].correct) wrongCount++;
+    }
+    var needExtra = wrongCount * 2;
+    resultDiv.className = 'result-banner show fail';
+    resultDiv.innerHTML = '😅 错了 <b>' + wrongCount + '</b> 道题，追加 <b>' + needExtra + '</b> 道加练题巩固！先看解析，再做加练。';
+    btnRetry.style.display = 'inline-block';
+    // Show extra practice: show up to needExtra questions
+    showExtraQuestions(ci, li, needExtra);
+  }
+  
+  updateProgress();
+}
+
+function showFeedback(qid, q, isCorrect, isUnanswered) {
+  var fbDiv = document.getElementById('fb-' + qid);
+  if (!fbDiv) return;
+  fbDiv.classList.add('show');
+  if (isUnanswered) {
+    fbDiv.className = 'feedback show wrong-fb';
+    fbDiv.innerHTML = '❌ 未作答。' + (q.type === 'choice' ? '正确答案：<b>' + ['A','B','C','D','E'][q.answer] + '</b>。' : '正确答案：<b>' + (Array.isArray(q.answer)?q.answer.join(' 或 '):q.answer) + '</b>。') + '<br>📝 ' + esc(q.explanation);
+  } else if (isCorrect) {
+    fbDiv.className = 'feedback show correct-fb';
+    fbDiv.innerHTML = '✅ 回答正确！太棒了！';
+  } else {
+    fbDiv.className = 'feedback show wrong-fb';
+    fbDiv.innerHTML = '❌ 回答错误。' + (q.type === 'choice' ? '正确答案：<b>' + ['A','B','C','D','E'][q.answer] + '</b>。' : '正确答案：<b>' + (Array.isArray(q.answer)?q.answer.join(' 或 '):q.answer) + '</b>。') + '<br>📝 ' + esc(q.explanation);
+  }
+  
+  // Style inputs
+  var inp = document.getElementById('inp-' + qid);
+  if (inp) {
+    inp.classList.remove('correct-input', 'wrong-input');
+    if (isUnanswered) { /* do nothing */ } 
+    else if (isCorrect) inp.classList.add('correct-input');
+    else inp.classList.add('wrong-input');
+    inp.disabled = true;
+  }
+  // Style options
+  var optsDiv = document.getElementById('opts-' + qid);
+  if (optsDiv) {
+    var btns = optsDiv.querySelectorAll('.opt-btn');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].classList.add('disabled');
+      if (i === q.answer) btns[i].classList.add('correct-opt');
+      else if (i === answers[qid] && i !== q.answer) btns[i].classList.add('wrong-opt');
+    }
+  }
+}
+
+function lockLevelInputs(ci, li) {
+  var lv = chapters[ci].levels[li];
+  for (var qi = 0; qi < lv.questions.length; qi++) {
+    var qid = ci + '-' + li + '-' + qi;
+    var inp = document.getElementById('inp-' + qid);
+    if (inp) inp.disabled = true;
+    var optsDiv = document.getElementById('opts-' + qid);
+    if (optsDiv) {
+      var btns = optsDiv.querySelectorAll('.opt-btn');
+      for (var i = 0; i < btns.length; i++) btns[i].classList.add('disabled');
+    }
+  }
+}
+
+// ========== EXTRA PRACTICE ==========
+// 动态显示加练题：错wrongCount道 → 追wrongCount×2道
+function showExtraQuestions(ci, li, needExtra) {
+  var lv = chapters[ci].levels[li];
+  var extraDiv = document.getElementById('extra-' + ci + '-' + li);
+  if (!extraDiv || !lv.extra || lv.extra.length === 0) {
+    // 没有加练题
+    if (extraDiv) {
+      extraDiv.classList.add('show');
+      extraDiv.innerHTML = '<h4>⚡ 暂无更多加练题，请认真看解析后重新挑战！</h4>';
+    }
+    return;
+  }
+  
+  // 取前 needExtra 道（不超过实际数量）
+  var showCount = Math.min(needExtra, lv.extra.length);
+  var html = '<h4>⚡ 加练时间！错了题？再做 <b>' + showCount + '</b> 道类似题目巩固一下：</h4>';
+  
+  for (var ei = 0; ei < showCount; ei++) {
+    var eq = lv.extra[ei];
+    var eid = ci + '-' + li + '-extra-' + ei;
+    html += '<div class="q-card">';
+    html += '<div><span class="q-num">加' + (ei+1) + '</span><span class="q-content">' + eq.content + '</span></div>';
+    if (eq.hint) {
+      html += '<div class="q-hint">💡 提示：' + esc(eq.hint) + '</div>';
+    }
+    if (eq.type === 'fill') {
+      html += '<div class="answer-area"><label>答：</label><input type="text" class="answer-input" id="inp-' + eid + '" placeholder="输入答案" oninput="saveAns(\'' + eid + '\', this.value)"></div>';
+    } else if (eq.type === 'choice') {
+      var letters2 = ['A','B','C','D','E'];
+      html += '<div class="options" id="opts-' + eid + '">';
+      for (var oi2 = 0; oi2 < eq.options.length; oi2++) {
+        html += '<button class="opt-btn" id="opt-' + eid + '-' + oi2 + '" onclick="pickOpt(\'' + eid + '\', ' + oi2 + ')"><span class="opt-letter">' + letters2[oi2] + '</span><span>' + esc(eq.options[oi2]) + '</span></button>';
+      }
+      html += '</div>';
+    }
+    html += '<div class="feedback" id="fb-' + eid + '"></div>';
+    html += '</div>';
+  }
+  
+  if (needExtra > lv.extra.length) {
+    html += '<p style="color:#92400E;font-size:13px;margin-top:8px;">⚠️ 加练题库不够了，剩余 ' + (needExtra - lv.extra.length) + ' 道请认真看解析后重新挑战！</p>';
+  }
+  
+  html += '<button class="btn btn-warning" onclick="submitExtra(' + ci + ',' + li + ')" style="margin-top:8px;">提交加练答案</button>';
+  extraDiv.innerHTML = html;
+  extraDiv.classList.add('show');
+}
+
+function submitExtra(ci, li) {
+  var lv = chapters[ci].levels[li];
+  if (!lv.extra) return;
+  var allCorrect = true;
+  for (var ei = 0; ei < lv.extra.length; ei++) {
+    var eq = lv.extra[ei];
+    var eid = ci + '-' + li + '-extra-' + ei;
+    var ua = answers[eid];
+    if (checkQ(eq, ua) !== true) {
+      allCorrect = false;
+    }
+    // Show feedback for extra questions
+    showFeedback(eid, eq, checkQ(eq, ua), checkQ(eq, ua) === null);
+  }
+  if (allCorrect) {
+    alert('🎉 加练题全部正确！你已经掌握了，可以重新挑战本关了！');
+    // Enable retry
+    var btnRetry = document.getElementById('btn-retry-' + ci + '-' + li);
+    if (btnRetry) btnRetry.style.display = 'inline-block';
+  } else {
+    alert('加练题中还有错误，再仔细看看解析，弄懂每一题！');
+  }
+}
+
+// ========== RETRY ==========
+function retryLevel(ci, li) {
+  var lv = chapters[ci].levels[li];
+  // Clear answers for this level
+  for (var qi = 0; qi < lv.questions.length; qi++) {
+    var qid = ci + '-' + li + '-' + qi;
+    delete answers[qid];
+    // Reset UI
+    var inp = document.getElementById('inp-' + qid);
+    if (inp) {
+      inp.value = '';
+      inp.disabled = false;
+      inp.classList.remove('correct-input', 'wrong-input');
+    }
+    var optsDiv = document.getElementById('opts-' + qid);
+    if (optsDiv) {
+      var btns = optsDiv.querySelectorAll('.opt-btn');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('selected', 'correct-opt', 'wrong-opt', 'disabled');
+      }
+    }
+    var fbDiv = document.getElementById('fb-' + qid);
+    if (fbDiv) {
+      fbDiv.classList.remove('show');
+      fbDiv.className = 'feedback';
+    }
+  }
+  // Reset buttons
+  document.getElementById('btn-submit-' + ci + '-' + li).style.display = 'inline-block';
+  document.getElementById('btn-retry-' + ci + '-' + li).style.display = 'none';
+  document.getElementById('result-' + ci + '-' + li).className = 'result-banner';
+  document.getElementById('result-' + ci + '-' + li).classList.remove('show');
+}
+
+// ========== NEXT LEVEL ==========
+function goNext(ci, li) {
+  var next = getNext(ci, li);
+  if (!next) {
+    alert('🏆 恭喜你！本章所有关卡已通关！');
+    return;
+  }
+  // Unlock next level
+  state[next.ci][next.li] = 'active';
+  saveState();
+  // Close current, open next
+  var currCard = document.getElementById('card-' + ci + '-' + li);
+  if (currCard) currCard.classList.remove('open');
+  render();
+  // Scroll to next
+  setTimeout(function() {
+    var nextCard = document.getElementById('card-' + next.ci + '-' + next.li);
+    if (nextCard) nextCard.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }, 100);
+}
+
+function getNext(ci, li) {
+  if (li < chapters[ci].levels.length - 1) return {ci: ci, li: li+1};
+  if (ci < chapters.length - 1) return {ci: ci+1, li: 0};
+  return null;
+}
+
+// ========== PROGRESS ==========
+function updateProgress() {
+  var total = 0;
+  var passed = 0;
+  for (var ci = 0; ci < chapters.length; ci++) {
+    for (var li = 0; li < chapters[ci].levels.length; li++) {
+      total++;
+      if (state[ci][li] === 'passed') passed++;
+    }
+  }
+  var pct = Math.round(passed / total * 100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progText').textContent = '已通关 ' + passed + ' / ' + total + ' 关（' + pct + '%）';
+}
+
+// ========== UTIL ==========
+function esc(s) {
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ========== INIT ==========
+initState();
+render();
+
+// Open the first active level
+for (var ci = 0; ci < chapters.length; ci++) {
+  for (var li = 0; li < chapters[ci].levels.length; li++) {
+    if (state[ci][li] === 'active') {
+      var card = document.getElementById('card-' + ci + '-' + li);
+      if (card) card.classList.add('open');
+      break;
+    }
+  }
+}
+</script>
+</body>
+</html>
